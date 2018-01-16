@@ -7,19 +7,32 @@ public class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String title;
-    private int priceCode;
+    private Price price;
 
     public Movie(String title, int priceCode) {
         this.title = title;
-        this.priceCode = priceCode;
+        // this.priceCode = priceCode;
+        setPriceCode(priceCode);
     }
 
     public int getPriceCode() {
-        return this.priceCode;
+        return price.getPriceCode();
     }
 
     public void setPriceCode(int newPriceCode) {
-        this.priceCode = newPriceCode;
+        switch (newPriceCode) {
+            case Movie.REGULAR:
+                price = new RegularPrice();
+                break;
+            case Movie.CHILDREN:
+                price = new ChildrenPrice();
+                break;
+            case Movie.NEW_RELEASE:
+                price = new NewReleasePrice();
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code!");
+        }
     }
 
     public String getTitle() {
