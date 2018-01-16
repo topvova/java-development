@@ -21,25 +21,42 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
         Enumeration rentals = this.rentals.elements(); // adding elements into the enumeration object
-        String result = "Rental Record for " + this.name + "\n";
+        String result = "Rental Record for " + getName() + "\n";
 
         while (rentals.hasMoreElements()) {
             Rental eachRental = (Rental) rentals.nextElement();
-            // add frequent renter points
-            frequentRenterPoints += eachRental.getFrequentRenterPoints();
 
             // show figures for this rental
             result += "\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(eachRental.getCharge()) + "\n";
 
-            totalAmount += eachRental.getCharge();
         }
         // add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+        result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
+        result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " frequent renter points";
 
+        return result;
+    }
+
+    private double getTotalFrequentRenterPoints() {
+        double result = 0;
+        Enumeration rentals = this.rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            Rental eachRental = (Rental) rentals.nextElement();
+            result += eachRental.charge();
+        }
+        return result;
+    }
+
+    private double getTotalCharge() {
+        double result = 0;
+        Enumeration rentals = this.rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            Rental eachRental = (Rental) rentals.nextElement();
+            result += eachRental.getCharge();
+        }
         return result;
     }
 
