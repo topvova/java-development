@@ -29,11 +29,28 @@ public class Customer {
 
             // show figures for this rental
             result += "\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(eachRental.getCharge()) + "\n";
-
         }
         // add footer lines
         result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
         result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " frequent renter points";
+
+        return result;
+    }
+
+    public String htmlStatement() {
+        Enumeration rentals = this.rentals.elements();
+        String result = "<h1>Rental Record for <em>" + getName() + "</em></h1><p>\n";
+
+        while (rentals.hasMoreElements()) {
+            Rental eachRental = (Rental) rentals.nextElement();
+
+            // show figures for this rental
+            result += "\t" + eachRental.getMovie().getTitle() + ": " + String.valueOf(eachRental.getCharge()) + "<br>\n";
+        }
+        // add footer lines
+        result += "<p>You owe <em>" + String.valueOf(getTotalCharge()) + "</em></p>\n";
+        result += "On this rental you earned <em>" + String.valueOf(getTotalFrequentRenterPoints()) +
+                "</em> frequent renter points</p>";
 
         return result;
     }
