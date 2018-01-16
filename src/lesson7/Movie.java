@@ -11,15 +11,10 @@ public class Movie {
 
     public Movie(String title, int priceCode) {
         this.title = title;
-        // this.priceCode = priceCode;
         setPriceCode(priceCode);
     }
 
-    public int getPriceCode() {
-        return price.getPriceCode();
-    }
-
-    public void setPriceCode(int newPriceCode) {
+    private void setPriceCode(int newPriceCode) {
         switch (newPriceCode) {
             case Movie.REGULAR:
                 price = new RegularPrice();
